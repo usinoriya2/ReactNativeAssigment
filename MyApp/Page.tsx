@@ -5,6 +5,7 @@ import {Character} from './models';
 
 interface Props{
     pageNumber: number,
+    currentPage:boolean,
     onButtonPressed:(pageNumber:number)=>void, 
 }
 
@@ -17,12 +18,12 @@ export default class Page extends React.Component<Props,State>{
     }
     
     render(){ 
-        
+        const currentPage = this.props.currentPage;
         let handleButtonPress = () =>{
             this.props.onButtonPressed(this.props.pageNumber);
         }
         return(
-            <Button  style={{height:40, margin:10}} mode="outlined" dark={true} onPress={handleButtonPress}>{this.props.pageNumber}</Button>
+            <Button  style={{height:40, margin:10}} mode={currentPage?"contained":"outlined"} dark={true} onPress={handleButtonPress}>{this.props.pageNumber}</Button>
         );
     }
 }

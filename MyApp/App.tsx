@@ -23,7 +23,9 @@
  import Page from './Page';
 interface Props {
   characterData: ResponseData, 
+  currentPage:number,
   onButtonPressed:(pageNumber:number)=>void, 
+  onSearch:(searchString:string)=>void
 }
 
 interface State {
@@ -44,22 +46,30 @@ class App extends React.Component<Props, State> {
     this.props.onButtonPressed(pageNumber);
   }
 
+  handleSearch = (searchString:string)=>{
+    this.props.onSearch(searchString);
+  }
+
   render() {
     // const birds = useSelector(state => this.state.birds);
     const characterData = this.props.characterData;
     
     let renderPages = () =>{
       const numberOfPages = characterData.info.pages;
+      const currentPage = this.props.currentPage;
       let pages = [];
       for(let i=1; i<=numberOfPages; i++){
-          pages.push(<Page pageNumber={i} onButtonPressed={this.handlePageButtonPress}/>);
+        if(i === currentPage){
+          pages.push(<Page pageNumber={i} currentPage={true} onButtonPressed={this.handlePageButtonPress}/>);
+        }else{
+          pages.push(<Page pageNumber={i} currentPage={false} onButtonPressed={this.handlePageButtonPress}/>);
+        }
       }
       return pages;
     }
-    console.log(this.props);
    return (
      <View>
-       <Search/>
+       <Search onSearch={this.handleSearch}/>
        <ScrollView style={{height:'85%'}}>
          <View>
           {this.props.characterData.results.map(character => {

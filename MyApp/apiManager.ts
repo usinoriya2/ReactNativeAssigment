@@ -3,36 +3,14 @@ import {ResponseData} from './models';
 
 let responseData:ResponseData;
 
-export let getPageWiseCharacterData = async(page:number) => {
+export let getPageWiseFilteredCharacterData = async(page:number, searchString:String):Promise<ResponseData> => {
     try {
-        const response = await axios.get("https://rickandmortyapi.com/api/character?page="+page);
+        const response = await axios.get("https://rickandmortyapi.com/api/character?name="+searchString+"&page="+page);
         responseData = response.data as ResponseData;
-        console.log(responseData);
+        console.log(responseData, "responseData");
         return responseData;
     } catch (error) {
         console.error(error);
     }
-    // axios.get("https://rickandmortyapi.com/api/character?page="+page)
-    //     .then(response => {
-    //         responseData = response.data as ResponseData;
-    //         console.log(responseData);
-    //         return responseData;
-    //     })
-    //     .catch(error => {
-    //         console.log(error);
-    //     });
-    return responseData;
-}
-
-export let getFilteredCharacterData = (searchString:String, page:number):ResponseData => {
-    axios.get("https://rickandmortyapi.com/api/character?page="+page+"&name="+searchString)
-        .then(response => {
-            responseData = response.data;
-            console.log(responseData);
-            return responseData;
-        })
-        .catch(error => {
-            console.log(error);
-        });
     return responseData;
 }

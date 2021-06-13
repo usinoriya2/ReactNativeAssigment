@@ -33,7 +33,7 @@ export default class CharacterCard extends React.Component<Props,State>{
                         <Card.Content>
                             <Paragraph>Status : {character.status}</Paragraph>
                             <Paragraph>Species : {character.species}</Paragraph>
-                            <Paragraph>Type : {character.type}</Paragraph>
+                            <Paragraph>Type : {character.type===''?"-":character.type}</Paragraph>
                             <Paragraph>Gender : {character.gender}</Paragraph>
                         </Card.Content>
                         <Card.Cover style={{width:'90%',margin:'5%', borderRadius:10}} source={{ uri: image }} />
