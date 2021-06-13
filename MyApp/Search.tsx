@@ -27,6 +27,7 @@ class Search extends React.Component<Props, State> {
     render() {
         return (
             <Searchbar
+                style={{height:'7%'}}
                 placeholder="Search"
                 onChangeText={this.onChangeSearch}
                 value={this.state.searchQuery}

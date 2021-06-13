@@ -42,7 +42,7 @@ class Main extends React.Component<Props, State> {
             next: "https://rickandmortyapi.com/api/character?page=3",
             prev: "https://rickandmortyapi.com/api/character?page=1"
         },
-        characters:[
+        results:[
             {
                 id: 21,
                 name: "Aqua Morty",
@@ -71,8 +71,13 @@ class Main extends React.Component<Props, State> {
   }
 
   componentDidMount(){
-      const characterData = getPageWiseCharacterData(1);
-    // this.setState({characterData:characterData});
+    this.getCurrentPageData();
+  }
+
+  getCurrentPageData = async() =>{
+    let characterData:ResponseData = await getPageWiseCharacterData(1);
+    console.log(characterData, 1);
+    this.setState({characterData:characterData});
   }
 
   render() {

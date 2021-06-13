@@ -5,7 +5,7 @@ export interface Bird{
 
 export interface ResponseData{
     info:Info,
-    characters:Character[],
+    results:Character[],
 }
 
 export interface Info{

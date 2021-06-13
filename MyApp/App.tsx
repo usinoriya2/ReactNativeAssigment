@@ -20,7 +20,7 @@
  import Search from './Search';
  import {Bird, ResponseData} from './models';
  import CharacterCard from './CharacterCard';
- import Pages from './Pages';
+ import Page from './Page';
 interface Props {
   characterData: ResponseData, 
 }
@@ -41,10 +41,12 @@ class App extends React.Component<Props, State> {
   } 
   render() {
     // const birds = useSelector(state => this.state.birds);
-    let setMultipleCharacters = () =>{
+    const characterData = this.props.characterData;
+    let renderPages = () =>{
+      const numberOfPages = characterData.info.pages;
       let tempArray = [];
-      for(let i=0; i<20; i++){
-        tempArray.push(<CharacterCard character={this.props.characterData.characters[0]}/>);
+      for(let i=0; i<numberOfPages; i++){
+          tempArray.push(<Page pageNumber={i+1}/>);
       }
       return tempArray;
     }
@@ -52,15 +54,15 @@ class App extends React.Component<Props, State> {
    return (
      <View>
        <Search/>
-       <ScrollView>
+       <ScrollView style={{height:'85%'}}>
          <View>
-          {/* {this.props.characterData.characters.map(character => {
+          {this.props.characterData.results.map(character => {
             return(<CharacterCard character={character}/>);
-          })} */}
-          {setMultipleCharacters()}
+          })}
+          {/* {setMultipleCharacters()} */}
         </View>
        </ScrollView>
-       <Pages numberOfPages={this.props.characterData.info.pages}/>
+       <ScrollView style={{height:'5%'}} horizontal={true}>{renderPages()}</ScrollView>
      </View>
    );
  };

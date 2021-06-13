@@ -26,7 +26,7 @@ export default class CharacterCard extends React.Component<Props,State>{
         const image:string =character.image;
         const LeftContent = () => <Image style={{width: 50, height: 50 ,borderRadius:25 }} source={{uri:image}}/>
         return(
-            <Card onPress={this.handleCardPress}>
+            <Card style={{marginBottom:5}} onPress={this.handleCardPress}>
                 <Card.Title title={this.props.character.name} left={LeftContent} />
                 {this.state.open?
                     <View>

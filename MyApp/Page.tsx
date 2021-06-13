@@ -18,7 +18,7 @@ export default class Page extends React.Component<Props,State>{
     render(){ 
         
         return(
-            <Button  mode="contained" onPress={() => console.log('Pressed')}>{this.props.pageNumber}</Button>
+            <Button  style={{height:40, margin:10}} mode="outlined" dark={true} onPress={() => console.log('Pressed')}>{this.props.pageNumber}</Button>
         );
     }
 }
