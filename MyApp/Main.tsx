@@ -13,7 +13,7 @@
  import { Provider as StoreProvider } from 'react-redux';
  import App from './App';
  import { createStore } from 'redux';
- import {getCharacterData} from './apiManager';
+ import {getPageWiseCharacterData} from './apiManager';
  import {ResponseData} from './models';
 
 const store = createStore(() => ({
@@ -45,7 +45,7 @@ class Main extends React.Component<Props, State> {
         characters:[
             {
                 id: 21,
-                name: "",
+                name: "Aqua Morty",
                 status: "unknown",
                 species: "Humanoid",
                 type: "Fish-Person",
@@ -71,7 +71,7 @@ class Main extends React.Component<Props, State> {
   }
 
   componentDidMount(){
-    //   const characterData = getCharacterData(1);
+      const characterData = getPageWiseCharacterData(1);
     // this.setState({characterData:characterData});
   }
 

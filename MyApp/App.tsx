@@ -11,6 +11,7 @@
  import React from 'react';
  import {
    StyleSheet,
+   ScrollView,
    Text,
    View,
  } from 'react-native';
@@ -18,8 +19,8 @@
  import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
  import Search from './Search';
  import {Bird, ResponseData} from './models';
-
-
+ import CharacterCard from './CharacterCard';
+ import Pages from './Pages';
 interface Props {
   characterData: ResponseData, 
 }
@@ -40,13 +41,26 @@ class App extends React.Component<Props, State> {
   } 
   render() {
     // const birds = useSelector(state => this.state.birds);
+    let setMultipleCharacters = () =>{
+      let tempArray = [];
+      for(let i=0; i<20; i++){
+        tempArray.push(<CharacterCard character={this.props.characterData.characters[0]}/>);
+      }
+      return tempArray;
+    }
     console.log(this.props);
    return (
      <View>
        <Search/>
-       {this.props.characterData.characters.map(character => {
-         return(<Text>{character.name}</Text>);
-       })}
+       <ScrollView>
+         <View>
+          {/* {this.props.characterData.characters.map(character => {
+            return(<CharacterCard character={character}/>);
+          })} */}
+          {setMultipleCharacters()}
+        </View>
+       </ScrollView>
+       <Pages numberOfPages={this.props.characterData.info.pages}/>
      </View>
    );
  };

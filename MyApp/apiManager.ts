@@ -2,11 +2,11 @@ import axios from 'axios';
 import {ResponseData} from './models';
 
 export let responseData:ResponseData;
-export let getCharacterData = (page:number):ResponseData => {
-    axios.get("https://rickandmortyapi.com/api/character")
+export let getPageWiseCharacterData = (page:number):ResponseData => {
+    axios.get("https://rickandmortyapi.com/api/character?page="+page)
         .then(response => {
             responseData = response.data;
-            // console.log(responseData);
+            console.log(responseData);
             return responseData;
         })
         .catch(error => {
