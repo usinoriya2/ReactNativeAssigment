@@ -71,20 +71,25 @@ class Main extends React.Component<Props, State> {
   }
 
   componentDidMount(){
-    this.getCurrentPageData();
+    this.getCurrentPageData(1);
   }
 
-  getCurrentPageData = async() =>{
-    let characterData:ResponseData = await getPageWiseCharacterData(1);
+  getCurrentPageData = async(pageNumber:number) =>{
+    let characterData:ResponseData = await getPageWiseCharacterData(pageNumber);
     console.log(characterData, 1);
     this.setState({characterData:characterData});
+  }
+
+  handlePageButtonPress = (pageNumber:number) =>{
+    console.log(pageNumber);
+    this.getCurrentPageData(pageNumber);
   }
 
   render() {
    return (
     <StoreProvider store={store}>
       <PaperProvider>
-          <App characterData={this.state.characterData}/>
+          <App characterData={this.state.characterData} onButtonPressed={this.handlePageButtonPress}/>
       </PaperProvider>
     </StoreProvider>
    );

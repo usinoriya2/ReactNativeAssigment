@@ -23,6 +23,7 @@
  import Page from './Page';
 interface Props {
   characterData: ResponseData, 
+  onButtonPressed:(pageNumber:number)=>void, 
 }
 
 interface State {
@@ -38,17 +39,22 @@ class App extends React.Component<Props, State> {
         views: 1
       }
     ],
-  } 
+  }
+  handlePageButtonPress= (pageNumber:number)=>{
+    this.props.onButtonPressed(pageNumber);
+  }
+
   render() {
     // const birds = useSelector(state => this.state.birds);
     const characterData = this.props.characterData;
+    
     let renderPages = () =>{
       const numberOfPages = characterData.info.pages;
-      let tempArray = [];
-      for(let i=0; i<numberOfPages; i++){
-          tempArray.push(<Page pageNumber={i+1}/>);
+      let pages = [];
+      for(let i=1; i<=numberOfPages; i++){
+          pages.push(<Page pageNumber={i} onButtonPressed={this.handlePageButtonPress}/>);
       }
-      return tempArray;
+      return pages;
     }
     console.log(this.props);
    return (
