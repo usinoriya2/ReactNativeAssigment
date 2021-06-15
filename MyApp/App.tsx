@@ -16,31 +16,31 @@ import {
   View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { Button, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Search from './Search';
-import { Bird, ResponseData } from './models';
+import { ResponseData, Character } from './models';
 import CharacterCard from './CharacterCard';
 import Page from './Page';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 interface Props {
   characterData?: ResponseData,
   currentPage: number,
   onButtonPressed: (pageNumber: number) => void,
-  onSearch: (searchString: string) => void
+  onSearch: (searchString: string) => void,
+  navigation: any,
 }
 
 interface State {
-  birds: Bird[],
+  historyView: boolean,
 }
 
 class App extends React.Component<Props, State> {
 
   state: State = {
-    birds: [
-      {
-        name: 'robin',
-        views: 1
-      }
-    ],
+    historyView: false,
   }
   handlePageButtonPress = (pageNumber: number) => {
     this.props.onButtonPressed(pageNumber);
@@ -50,14 +50,19 @@ class App extends React.Component<Props, State> {
     this.props.onSearch(searchString);
   }
 
+  goToHistory = () => {
+    this.props.navigation.navigate('History');
+  }
+
   render() {
     // const birds = useSelector(state => this.state.birds);
     const characterData = this.props.characterData;
-
+    const numberOfPages = characterData?.info.pages || 0;
     let renderPages = () => {
-      const numberOfPages = characterData?.info.pages || 0;
+
       const currentPage = this.props.currentPage;
       let pages = [];
+      if (numberOfPages <= 1) return;
       for (let i = 1; i <= numberOfPages; i++) {
         if (i === currentPage) {
           pages.push(<Page pageNumber={i} currentPage={true} onButtonPressed={this.handlePageButtonPress} />);
@@ -70,12 +75,12 @@ class App extends React.Component<Props, State> {
     return (
       <View>
         <Search onSearch={this.handleSearch} />
-        <ScrollView style={{ height: '85%' }}>
+        <Button style={{ height: 40, margin: 10 }} mode="outlined" dark={true} onPress={this.goToHistory}>HISTORY</Button>
+        <ScrollView style={numberOfPages <= 1 ? { height: '85%' } : { height: '77%' }}>
           <View>
             {this.props.characterData?.results.map(character => {
-              return (<CharacterCard character={character} />);
+              return (<CharacterCard fromHistory={false} key={character.id} character={character} />);
             })}
-            {/* {setMultipleCharacters()} */}
           </View>
         </ScrollView>
         <ScrollView style={{ height: '5%' }} horizontal={true}>{renderPages()}</ScrollView>
@@ -84,10 +89,5 @@ class App extends React.Component<Props, State> {
   };
 }
 
-const styles = StyleSheet.create({
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

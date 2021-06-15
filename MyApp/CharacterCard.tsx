@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-import { connect } from "react-redux"
+import { connect } from "react-redux";
 import { Character } from './models';
 import { addCharacters } from './actions/historyActions';
 import { ReduxState } from './Main';
 
 interface OuterCharacterProps {
+    fromHistory: boolean,
     character: Character,
 }
 
@@ -31,7 +32,7 @@ class CharacterCard extends React.Component<CharacterProps, CharacterState>{
 
     handleCardPress = () => {
         let open = this.state.open;
-        this.props.addCharacters(this.props.character);
+        if (!this.props.fromHistory && !this.state.open) this.props.addCharacters(this.props.character);
         console.log(this.props.characterHistory);
         this.setState({ open: !open });
     }

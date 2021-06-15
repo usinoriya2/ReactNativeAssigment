@@ -1,17 +1,16 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { Provider as StoreProvider } from 'react-redux';
 import App from './App';
-import { createStore } from 'redux';
-import allReducers from "./reducers";
+
 import { getPageWiseFilteredCharacterData } from './apiManager';
 import { Character, ResponseData } from './models';
+import { NavigationHelpers } from '@react-navigation/core';
 //  import Spinner from 'react-native-loading-spinner-overlay';
-let store = createStore(allReducers);
+
 
 
 interface Props {
+    navigation: any,
 }
 
 export interface ReduxState {
@@ -55,13 +54,9 @@ class Main extends React.Component<Props, ReduxState> {
 
     render() {
         return (
-            <StoreProvider store={store}>
-                <PaperProvider>
-                    {this.state.loading ? <ActivityIndicator size="large" color="#0000ff" /> :
-                        <App characterData={this.state.characterData} onButtonPressed={this.handlePageButtonPress} onSearch={this.handleSearch}
-                            currentPage={this.state.currentPage} />}
-                </PaperProvider>
-            </StoreProvider>
+            // this.state.loading ? <ActivityIndicator size="large" /> :
+            <App characterData={this.state.characterData} onButtonPressed={this.handlePageButtonPress} onSearch={this.handleSearch}
+                currentPage={this.state.currentPage} navigation={this.props.navigation} />
         );
     };
 }

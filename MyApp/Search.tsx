@@ -3,38 +3,38 @@ import { View, TextInput, NativeSyntheticEvent, TextInputChangeEventData } from 
 import { Searchbar } from 'react-native-paper';
 
 interface Props {
-    onSearch:(searchString:string)=>void;
+    onSearch: (searchString: string) => void;
 }
 
 interface State {
-    searchString : string,
+    searchString: string,
 }
 
 class Search extends React.Component<Props, State> {
 
     state: State = {
-        searchString : '',
+        searchString: '',
     }
 
-    componentDidMount() { 
+    componentDidMount() {
     }
 
-     handleSearch = (query : string) => {
+    handleSearch = (query: string) => {
         console.log(query);
         this.props.onSearch(query);
-        this.setState({searchString:query});
+        this.setState({ searchString: query });
     }
 
-    
+
     render() {
         return (
             <Searchbar
-                style={{height:'7%'}}
+                style={{ height: 50 }}
                 placeholder="Search"
                 onChangeText={this.handleSearch}
                 value={this.state.searchString}
             />
         );
-      }
- }
- export default Search;
+    }
+}
+export default Search;
