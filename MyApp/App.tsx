@@ -65,9 +65,9 @@ class App extends React.Component<Props, State> {
       if (numberOfPages <= 1) return;
       for (let i = 1; i <= numberOfPages; i++) {
         if (i === currentPage) {
-          pages.push(<Page pageNumber={i} currentPage={true} onButtonPressed={this.handlePageButtonPress} />);
+          pages.push(<Page key={i} pageNumber={i} currentPage={true} onButtonPressed={this.handlePageButtonPress} />);
         } else {
-          pages.push(<Page pageNumber={i} currentPage={false} onButtonPressed={this.handlePageButtonPress} />);
+          pages.push(<Page key={i} pageNumber={i} currentPage={false} onButtonPressed={this.handlePageButtonPress} />);
         }
       }
       return pages;
